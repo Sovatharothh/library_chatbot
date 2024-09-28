@@ -4,22 +4,26 @@ import { faPaperPlane, faHistory, faComment, faBroom, faCircle } from '@fortawes
 
 import './chatpage.css';
 
-// Import the logos
 import AUPP_Logo from '../assets/AUPP_Logo.png';
 import engle from '../assets/engle.png';
 
 export default function ChatPage() {
   const [currentTab, setCurrentTab] = useState('Main');
-  const [attemptCount, setAttemptCount] = useState(1); // Track attempt count
+  const [attemptCount, setAttemptCount] = useState(1);
 
   const handleTabClick = (tab) => {
     setCurrentTab(tab);
   };
 
-  // Function to handle the user progressing to the next attempt
   const handleNextAttempt = () => {
-    setAttemptCount(prev => (prev < 5 ? prev + 1 : prev)); // Increment up to 5 attempts
+    setAttemptCount((prev) => (prev < 5 ? prev + 1 : prev));
   };
+
+  const stepSize = 45; // Distance between the centers of two consecutive nav-circles
+  const initialRightOffset = 120; // attempt-icon first position
+
+  // Calculate the right position based on the attempt count
+  const rightPosition = initialRightOffset + (attemptCount - 1) * stepSize;
 
   return (
     <div className="chatpage-container">
@@ -77,9 +81,9 @@ export default function ChatPage() {
               className={`nav-circle ${attemptCount > 4 - index ? 'active' : ''}`}></div>
           ))}
         </div>
-        <div 
-          className="attempt-icon" 
-          style={{ right: `${(5 - attemptCount) * 30}px` }} /* Position relative to the right side */
+        <div
+          className="attempt-icon"
+          style={{ right: `${rightPosition}px` }} // Correct positioning of the attempt icon
         >
           <img className="engle" src={engle} alt="engle" />
         </div>
@@ -100,7 +104,11 @@ export default function ChatPage() {
           <div className="clear-container">
             <FontAwesomeIcon icon={faBroom} className="clear-icon" /> clear
           </div>
-          <FontAwesomeIcon icon={faPaperPlane} className="send-icon" onClick={handleNextAttempt} />
+          <FontAwesomeIcon
+            icon={faPaperPlane}
+            className="send-icon"
+            onClick={handleNextAttempt}
+          />
         </div>
       </div>
     </div>

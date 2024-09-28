@@ -1,8 +1,17 @@
+:root {
+  --primary-color: #0E2160;
+  --secondary-color: #AD0000;
+  --border-color: #D1D5DB;
+  --background-color: #f0f0f0;
+}
+
 .login-signup-container {
   display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .image-container {
@@ -27,6 +36,7 @@
   color: white;
   padding: 10px;
   border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5); /* Add a slight background to enhance text visibility */
 }
 
 .heading {
@@ -46,9 +56,10 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 40px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
 }
 
 .logo {
@@ -68,7 +79,7 @@ h2 {
   width: 95%;
   justify-content: center;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   background-color: #ffffff;
   color: #000000;
@@ -94,7 +105,7 @@ h2 {
 
 .divider {
   flex: 1;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--border-color);
 }
 
 .or-text {
@@ -109,7 +120,7 @@ h2 {
 
 .form-group label {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
 .form-group input {
@@ -117,6 +128,7 @@ h2 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1rem;
 }
 
 .password-input-container {
@@ -144,7 +156,7 @@ h2 {
 button {
   width: 100%;
   padding: 10px 15px; 
-  background-color: #0E2160;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 4px;
@@ -155,5 +167,40 @@ button {
 }
 
 button:hover {
-  background-color: #0E2160;
+  background-color: #091740;
+}
+
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+button:active {
+  background-color: #06152d;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .login-signup-form-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .image-container {
+    width: 100%;
+    height: auto;
+    padding: 0;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
 }

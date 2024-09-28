@@ -19,6 +19,7 @@ export default function LoginSignup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Ideally, perform validation and authentication here
     navigate('/chat');
   };
 
@@ -73,7 +74,11 @@ export default function LoginSignup() {
                 placeholder="password..."
                 required
               />
-              <span className="password-toggle-icon" onClick={togglePasswordVisibility}>
+              <span 
+                className="password-toggle-icon" 
+                onClick={togglePasswordVisibility}
+                aria-label={passwordVisible ? "Hide password" : "Show password"}
+              >
                 <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} style={{ fontSize: '12px' }} />
               </span>
             </div>
