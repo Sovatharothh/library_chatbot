@@ -11,25 +11,37 @@
 }
 
 .sidebar {
-  width: 220px;
-  /* height: 100vh; */
+  width: 230px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border-color);
+  position: fixed;
+  top: 0; /* Start from the top of the viewport */
+  bottom: 0;
+  left: 0;
+  height: 100vh; /* Full height of the viewport */
+  box-sizing: border-box;
+  background-color: white; /* Ensure sidebar has a background color */
+}
+
+.sidebar-header {
+  text-align: left;
+  padding-right: 300px;
+  margin-bottom: 10px;
+  font-size: 1rem;
 }
 
 .sidebar-content {
   flex-grow: 1;
-  overflow-y: auto;
 }
 
 .attempt-container {
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .attempt-box {
-  margin: 20px 0;
+  margin: 28px 0;
 }
 
 .attempt-frame {
@@ -40,6 +52,26 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+/* Circle style */
+.attempt-frame .fa-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: inline-block;
+  border-style: dashed;
+  border-width: 2px;
+}
+
+.attempt-box.blue .circle {
+  background-color: var(--secondary-color);
+}
+
+.attempt-box.red .circle {
+  background-color: var(--primary-color);
 }
 
 .attempt-box.blue .attempt-frame {
@@ -50,6 +82,7 @@
   background-color: var(--secondary-color);
 }
 
+/* tab for history and main button  */
 .tabs {
   margin-top: auto;
   display: flex;
@@ -63,11 +96,9 @@
   background-color: white;
   border-radius: 5px;
   border: 1px solid var(--border-color);
-
 }
 
-.tab-button-history,
-.tab-button-main {
+.tab-button {
   width: 100px;
   margin: 5px;
   text-align: center;
@@ -79,90 +110,168 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  color: white;
   font-size: 0.8rem;
 }
 
-.tab-button-main:hover {
-  background-color: white;
-  color: black;
-}
-
-.tab-button-history{
-  background-color: white;
-  color: black;
-  width: 100px;
-  margin: 5px;
-  text-align: center;
-  flex: 1;
-  padding: 10px;
-  border-radius: 5px;
-  /* border: 1px solid var(--border-color); */
-
-}
-
-.tab-button-history:hover{
+.tab-button.on {
   background-color: var(--primary-color);
+  color: white;
 }
 
+.tab-button.off {
+  background-color: white;
+  color: var(--primary-color);
+}
 
-/* nav bar */
+/* Navbar */
 .navbar {
   display: flex;
-  width: calc(100% - 282px); 
+  width: calc(100% - 230px); /* Adjusted to account for sidebar width */
   height: 85px;
-  border: 1px solid var(--border-color);
-  position: absolute;
+  border-bottom: 1px solid var(--border-color);
+  position: fixed;
   top: 0;
   right: 0;
-  display: flex;
+  background-color: white;
+  z-index: 1000;
   justify-content: flex-end;
   align-items: center;
   padding-right: 20px;
-
+  box-sizing: border-box;
 }
-.navbar .user-info{
+
+
+/* info */
+.navbar .user-info {
   position: absolute;
-  right: 95%;
+  right: 92%;
 }
 
+.attempt-icon {
+  width: 20px;
+  height: 20px;
+  top: -13px;
+  position: absolute;
+  transform: translateY(-50%); /* Adjust this to fine-tune vertical alignment */
+  transition: right 0.3s ease; /* Smooth transition when moving between circles */
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+/* circle attempts */
+.circle-container {
+  display: flex;
+  justify-content: space-between;
+  width: 180px; /* Adjust width to fit the circles */
+  top: 50px;
+  position: absolute;
+  margin-right: 60px;
+  margin-top: 10px; /* Space below the circle container */
+}
+
+
+.nav-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--border-color); 
+  margin: 10 5px;
+  transition: background-color 0.3s ease; 
+}
+
+.nav-circle.active {
+  background-color: var(--secondary-color); /* Highlight active or completed circles */
+}
+
+/* chat-area */
 .chat-area {
-  flex-grow: 1; /* Allow chatpage to fill remaining space */
-  padding: 220px; /* Optional padding */
+  flex-grow: 1;
+  padding: 20px;
+  padding-top: 105px; /* Account for navbar height */
+  margin-left: 230px; /* Account for sidebar width */
   overflow-y: auto;
-  /* background-color: #AD0000; */
+  position: relative;
+}
+
+/* welcome-page */
+.welcome-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers content horizontally */
+  justify-content: center; /* Centers content vertically */
+  text-align: center; /* Optional: Center the text within each element */
+  padding: 80px;
+}
+
+.welcome-page img.logo {
+  margin-bottom: 10px; 
+}
+
+.welcome-page h2 {
+  margin-top: 5px; 
+  font-size: 1.5rem; 
 }
 
 
+/* Chat input */
 .chat-input {
-  position: relative;
+  position: absolute;
+  bottom: 20px; /* Fix the input 20px from the bottom of the chat area */
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
-
+  width: calc(100% - 40px); /* Account for padding on both sides */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px; /* Adjust padding as needed */
+  box-sizing: border-box;
+  background-color: white;
+  z-index: 10;
 }
 
 .chat-input input {
   flex-grow: 1;
-  padding: 10px 50px 10px 30px;
+  padding: 10px 10px 10px 30px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.clear-container {
+  display: flex;
+  align-items: center;  /* Vertically centers the icon and text */
+  position: absolute;
+  right: 25px;  /* Adjust the positioning relative to the right of .chat-input */
+  transform: translateY(-50%);  /* Adjusts positioning to be centered */
+  cursor: pointer;
+  padding-bottom: 30px;
+  color: var(--secondary-color);  /* Sets the initial color */
+}
+
+.clear-icon {
+  margin-right: 5px;  /* Space between the icon and the text */
+}
+
+.clear-container:hover {
+  color: var(--primary-color);  /* Changes the color on hover */
 }
 
 .send-icon {
   position: absolute;
-  color: var(--secondary-color);
-  right: 20px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.send-icon:hover{
   color: var(--primary-color);
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
+.send-icon:hover {
+  color: var(--secondary-color);
+}
 
-@media (max-height: 500px){
-  .social_media{
+@media (max-height: 500px) {
+  .social_media {
     display: none !important;
   }
 }
