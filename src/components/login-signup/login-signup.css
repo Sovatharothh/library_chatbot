@@ -10,45 +10,42 @@
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 5px;
   box-sizing: border-box;
 }
 
 .image-container {
   position: relative;  
-  top: -1px;
-  width: 600px;
-  height: 610px;
-  padding: 15px;
+  width: 550px;
+  height: 600px;
+  padding: 10px;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
-.image-overlay {
+.image-text {
   position: absolute;
-  bottom: 20px; 
-  left: 20px; 
+  bottom: 20px;
+  left: 15px;
   color: white;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5); /* Add a slight background to enhance text visibility */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
 }
 
 .heading {
-  font-size: 3.2rem; 
+  font-size: 3.2rem;
   word-spacing: 2px;
   line-height: 1.1;
   font-weight: bold;
-  margin-bottom: 10px; 
+  margin-bottom: 20px;
 }
 
 .description {
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
 }
 
 .login-signup-form-container {
@@ -59,13 +56,12 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
 }
 
 .logo {
   height: 60px;
   display: block;
-  margin: 0 auto 20px;
+  margin: 0 auto 10px;
 }
 
 h2 {
@@ -85,7 +81,7 @@ h2 {
   color: #000000;
   text-decoration: none;
   margin-bottom: 20px;
-  font-size: 1rem; 
+  font-size: 1rem;
 }
 
 .microsoft-btn:hover {
@@ -93,7 +89,7 @@ h2 {
 }
 
 .microsoft-logo {
-  height: 22px; 
+  height: 22px;
   margin-right: 8px;
 }
 
@@ -111,7 +107,7 @@ h2 {
 .or-text {
   margin: 0 10px;
   color: #555;
-  font-size: 1rem; 
+  font-size: 1rem;
 }
 
 .form-group {
@@ -128,7 +124,7 @@ h2 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.78rem;
 }
 
 .password-input-container {
@@ -139,31 +135,31 @@ h2 {
 
 .password-input-container input {
   width: 100%;
-  padding-right: 40px; /* Ensure space for the icon */
+  padding-right: 40px; 
 }
 
 .password-toggle-icon {
   position: absolute;
   right: 10px;
   cursor: pointer;
-  color: gray; /* Set the icon color to gray */
+  color: gray; 
 }
 
 .password-toggle-icon:hover {
-  color: #000; /* Optional: darken color on hover */
+  color: #000; 
 }
 
 button {
   width: 100%;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem; 
-  margin-top: 20px; 
-  margin-bottom: 20px; 
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 button:hover {
@@ -185,15 +181,23 @@ button:disabled {
 }
 
 @media (max-width: 768px) {
-  .login-signup-form-container {
-    padding: 20px;
-    max-width: 100%;
+  .login-signup-container {
+    flex-direction: column; /* Stack the image and form vertically */
+    height: auto; /* Allow content to grow with the screen height */
   }
 
   .image-container {
     width: 100%;
-    height: auto;
+    height: 50vh; /* Image takes half the screen height */
     padding: 0;
+  }
+
+  .login-signup-form-container {
+    width: 95%;
+    height: 50vh; /* Form takes half the screen height */
+    margin-top: 20px;
+    max-width: 100%;
+    padding: 20px;
   }
 
   .heading {
@@ -201,6 +205,6 @@ button:disabled {
   }
 
   .description {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }

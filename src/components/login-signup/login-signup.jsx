@@ -27,9 +27,10 @@ export default function LoginSignup() {
     <div className="login-signup-container">
       <div className="image-container">
         <img src={library} alt="Library" />
-        <div className="image-overlay">
+        {/* Keep the text inside the image container */}
+        <div className="image-text">
           <h1 className="heading">Enhance your knowledge with AUPP library resources.</h1>
-          <p className="description">Our chatbot will help your education by finding useful resources <br></br>within a second.</p>
+          <p className="description">Our chatbot will help your education by finding useful resources <br /> within a second.</p>
         </div>
       </div>
 
