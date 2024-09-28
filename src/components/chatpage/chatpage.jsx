@@ -83,7 +83,7 @@ export default function ChatPage() {
         </div>
         <div
           className="attempt-icon"
-          style={{ right: `${rightPosition}px` }} // Correct positioning of the attempt icon
+          style={{ right: `${rightPosition}px` }} 
         >
           <img className="engle" src={engle} alt="engle" />
         </div>

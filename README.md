@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# AUPP Chatbot Front-End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the front-end implementation of the AUPP Library Chatbot, which includes a login/signup page and a chat interface. The project is built using React and is styled using custom CSS.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+  - [LoginSignup Component](#loginsignup-component)
+  - [ChatPage Component](#chatpage-component)
+- [Styling](#styling)
+  - [Responsive Design](#responsive-design)
+- [Customizing](#customizing)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To set up the project locally, follow these steps:
 
-### `npm test`
+1. **Clone the repository:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    ```bash
+    git clone https://github.com/Sovatharothh/library_chatbot.git
+    ```
 
-### `npm run build`
+2. **Install dependencies:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    Make sure you have Node.js and npm installed. Then, install the dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Start the development server:**
 
-### `npm run eject`
+    ```bash
+    npm start
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The app will be available at `http://localhost:3000`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### LoginSignup Component
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The `LoginSignup` component is the entry point for users to create an account or log in using their Microsoft account. This page is designed to be responsive and adjusts its layout based on the screen size:
 
-## Learn More
+- **Desktop**: The screen is split, with the left half displaying an image (with optional text) and the right half containing the form.
+- **Mobile/Tablet**: The image and form stack vertically, each taking up half of the screen height.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### ChatPage Component
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The `ChatPage` component is the main interface where users can interact with the chatbot. It features:
 
-### Code Splitting
+- A sidebar with tabs for navigation (`Main` and `History`).
+- A dynamic navbar that displays the user's progress through different attempts.
+- A chat area where users can type messages and interact with the chatbot.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Styling
 
-### Analyzing the Bundle Size
+The project uses custom CSS for styling, with responsiveness built in using media queries. Key points include:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Flexbox Layouts**: Flexbox is used extensively to create flexible and responsive layouts.
+- **Responsive Design**: Media queries ensure the application works well on various screen sizes, stacking content vertically on smaller screens.
 
-### Making a Progressive Web App
+### Responsive Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Both the `LoginSignup` and `ChatPage` components are designed to be fully responsive:
 
-### Advanced Configuration
+- **LoginSignup Page**:
+  - On larger screens, the form and image split the screen equally.
+  - On smaller screens, the components stack vertically, each taking up half of the screen height.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **ChatPage**:
+  - The chat interface is designed to be fully responsive, with a sidebar, navbar, and chat area adjusting dynamically based on screen size.
 
-### Deployment
+## Customizing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+You can customize the project by modifying the CSS files in the `styles/` directory:
 
-### `npm run build` fails to minify
+- **Changing Images**: Replace the images in the `assets/` directory with your own.
+- **Modifying Layouts**: Adjust the Flexbox settings in the CSS files to change the layout.
+- **Styling Components**: Modify the CSS variables in `:root` to change the color scheme and other global styles.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributing
+
+If you wish to contribute to the project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes and commit them with descriptive messages.
+4. Push your changes to your forked repository.
+5. Open a pull request to the main repository.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+
