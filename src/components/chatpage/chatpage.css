@@ -10,6 +10,7 @@
   height: 100vh;
 }
 
+/* Sidebar */
 .sidebar {
   width: 230px;
   padding: 20px;
@@ -17,12 +18,19 @@
   flex-direction: column;
   border-right: 1px solid var(--border-color);
   position: fixed;
-  top: 0; /* Start from the top of the viewport */
+  top: 0;
   bottom: 0;
   left: 0;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh;
   box-sizing: border-box;
-  background-color: white; /* Ensure sidebar has a background color */
+  background-color: white;
+  z-index: 1000;
+  transform: translateX(0); /* Sidebar visible by default on desktop */
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.sidebar.visible {
+  transform: translateX(0); /* Show sidebar when the hamburger is clicked */
 }
 
 .sidebar-header {
@@ -53,7 +61,11 @@
   align-items: center;
   border-radius: 5px;
   font-size: 0.9rem;
+  cursor: pointer;
+
 }
+
+
 
 /* Circle style */
 .attempt-frame .fa-circle {
@@ -82,7 +94,7 @@
   background-color: var(--secondary-color);
 }
 
-/* tab for history and main button  */
+/* Tabs */
 .tabs {
   margin-top: auto;
   display: flex;
@@ -140,11 +152,31 @@
   box-sizing: border-box;
 }
 
-
 /* info */
 .navbar .user-info {
   position: absolute;
   right: 92%;
+}
+
+
+.hamburger-btn {
+  display: none; /* Hidden by default, only visible on mobile */
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  top: 8px;
+  left: 30px;
+  z-index: 1100px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 5px;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-btn.sidebar-open {
+  left: 250px; /* Move hamburger button to the right when the sidebar is open */
 }
 
 /* attempt-icon */
@@ -158,42 +190,41 @@
   z-index: 10; 
 }
 
-
-/* circle attempts */
+/* Circle attempts */
 .circle-container {
   display: flex;
   justify-content: space-between;
-  width: 200px; /* Adjust width to fit the circles */
+  width: 200px;
   top: 50px;
   position: absolute;
   margin-right: 60px;
-  margin-top: 10px; /* Space below the circle container */
+  margin-top: 10px;
 }
-
 
 .nav-circle {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   color: white;
-  background-color: var(--border-color); 
+  background-color: var(--border-color);
   margin: 0 5px;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .nav-circle.active {
-  background-color: var(--secondary-color); /* Highlight active or completed circles */
+  background-color: var(--secondary-color);
 }
 
-/* chat-area */
+/* Chat area */
 .chat-area {
   flex-grow: 1;
   padding: 20px;
-  padding-top: 105px; /* Account for navbar height */
-  margin-left: 230px; /* Account for sidebar width */
+  padding-top: 105px;
+  margin-left: 230px; /* Sidebar visible by default, so leave margin */
   overflow-y: auto;
   position: relative;
 }
+
 
 /* welcome-page */
 .welcome-page {
@@ -214,19 +245,18 @@
   font-size: 1.5rem; 
 }
 
-
 /* Chat input */
 .chat-input {
   position: absolute;
-  bottom: 20px; /* Fix the input 20px from the bottom of the chat area */
+  bottom: 20px;
   left: 0;
   right: 0;
   display: flex;
   align-items: center;
-  width: calc(100% - 40px); /* Account for padding on both sides */
+  width: calc(100% - 40px);
   margin-left: auto;
   margin-right: auto;
-  padding: 10px 20px; /* Adjust padding as needed */
+  padding: 10px 20px;
   box-sizing: border-box;
   background-color: white;
   z-index: 10;
@@ -242,21 +272,21 @@
 
 .clear-container {
   display: flex;
-  align-items: center;  /* Vertically centers the icon and text */
+  align-items: center;
   position: absolute;
-  right: 25px;  /* Adjust the positioning relative to the right of .chat-input */
-  transform: translateY(-50%);  /* Adjusts positioning to be centered */
+  right: 25px;
+  transform: translateY(-50%);
   cursor: pointer;
   padding-bottom: 30px;
-  color: var(--secondary-color);  /* Sets the initial color */
+  color: var(--secondary-color);
 }
 
 .clear-icon {
-  margin-right: 5px;  /* Space between the icon and the text */
+  margin-right: 5px;
 }
 
 .clear-container:hover {
-  color: var(--primary-color);  /* Changes the color on hover */
+  color: var(--primary-color);
 }
 
 .send-icon {
@@ -272,8 +302,41 @@
   color: var(--secondary-color);
 }
 
-@media (max-height: 500px) {
-  .social_media {
-    display: none !important;
+/* MOBILE STYLES */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block; /* Show hamburger button on mobile */
+  }
+
+  .sidebar {
+    transform: translateX(-100%); /* Hide sidebar by default on mobile */
+    width: 230px; /* Sidebar remains the same size */
+  }
+
+  .sidebar.visible {
+    transform: translateX(0); /* Show sidebar when hamburger is clicked */
+
+  }
+
+  .navbar {
+    width: 100%; /* Full width navbar on mobile */
+    justify-content: flex-end; /* Hamburger is on the left */
+  }
+
+  .user-info {
+    display: none; /* Hide user info on mobile */
+  }
+
+  .chat-area {
+    margin-left: 0; /* Sidebar hidden, so no margin on mobile */
+    padding-top: 70px; /* Adjust padding to account for smaller navbar */
+  }
+
+  .chat-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
   }
 }

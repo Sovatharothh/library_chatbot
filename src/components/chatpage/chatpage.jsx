@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faHistory, faComment, faBroom, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faPaperPlane, faHistory, faComment, faBroom, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 import './chatpage.css';
-
 import AUPP_Logo from '../assets/AUPP_Logo.png';
 import engle from '../assets/engle.png';
 
 export default function ChatPage() {
   const [currentTab, setCurrentTab] = useState('Main');
   const [attemptCount, setAttemptCount] = useState(1);
+  const [sidebarVisible, setSidebarVisible] = useState(false); // State to toggle sidebar
 
   const handleTabClick = (tab) => {
     setCurrentTab(tab);
@@ -17,6 +17,10 @@ export default function ChatPage() {
 
   const handleNextAttempt = () => {
     setAttemptCount((prev) => (prev < 5 ? prev + 1 : prev));
+  };
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
   };
 
   const stepSize = 45; // Distance between the centers of two consecutive nav-circles
@@ -27,8 +31,34 @@ export default function ChatPage() {
 
   return (
     <div className="chatpage-container">
+      {/* Navbar */}
+      <div className="navbar">
+        {/* Hamburger Button for Mobile */}
+        <button 
+          className={`hamburger-btn ${sidebarVisible ? 'sidebar-open' : ''}`} 
+          onClick={toggleSidebar}
+        >
+          <FontAwesomeIcon icon={faBars} />
+        </button>
+        {/* User Info (Hidden on Mobile) */}
+        <div className="user-info">
+          <button className="user-profile"></button>
+        </div>
+        <div className="circle-container">
+          {[...Array(5)].map((_, index) => (
+            <div
+              key={index}
+              className={`nav-circle ${attemptCount > 4 - index ? 'active' : ''}`}
+            ></div>
+          ))}
+        </div>
+        <div className="attempt-icon" style={{ right: `${rightPosition}px` }}>
+          <img className="engle" src={engle} alt="engle" />
+        </div>
+      </div>
+
       {/* Sidebar */}
-      <div className="sidebar">
+      <div className={`sidebar ${sidebarVisible ? 'visible' : ''}`}>
         <div className="sidebar-content">
           <div className="sidebar-header">
             <h2>{currentTab}</h2>
@@ -66,26 +96,6 @@ export default function ChatPage() {
               <FontAwesomeIcon icon={faComment} /> Main
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Navbar */}
-      <div className="navbar">
-        <div className="user-info">
-          <button className="user-profile"></button>
-        </div>
-        <div className="circle-container">
-          {[...Array(5)].map((_, index) => (
-            <div 
-              key={index} 
-              className={`nav-circle ${attemptCount > 4 - index ? 'active' : ''}`}></div>
-          ))}
-        </div>
-        <div
-          className="attempt-icon"
-          style={{ right: `${rightPosition}px` }} 
-        >
-          <img className="engle" src={engle} alt="engle" />
         </div>
       </div>
 
