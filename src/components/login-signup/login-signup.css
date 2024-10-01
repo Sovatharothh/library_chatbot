@@ -15,9 +15,9 @@
 }
 
 .image-container {
-  position: relative;  
-  width: 550px;
-  height: 600px;
+  position: relative;
+  width: 680px;
+  height: 660px;
   padding: 10px;
 }
 
@@ -31,9 +31,10 @@
 .image-text {
   position: absolute;
   bottom: 20px;
-  left: 15px;
+  left: 30px;
+  right: 30px;
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .heading {
@@ -61,7 +62,7 @@
 .logo {
   height: 60px;
   display: block;
-  margin: 0 auto 10px;
+  margin: 0 auto 20px;
 }
 
 h2 {
@@ -70,11 +71,11 @@ h2 {
 }
 
 .microsoft-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  width: 95%;
   justify-content: center;
-  padding: 8px;
+  width: 100%; 
+  padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
   background-color: #ffffff;
@@ -82,15 +83,20 @@ h2 {
   text-decoration: none;
   margin-bottom: 20px;
   font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap; /* Prevent text from wrapping */
+  height: 48px;
+  box-sizing: border-box;
+}
+
+.microsoft-btn img {
+  height: 24px;
+  margin-right: 10px;
 }
 
 .microsoft-btn:hover {
   background-color: #f5f5f5;
-}
-
-.microsoft-logo {
-  height: 22px;
-  margin-right: 8px;
 }
 
 .divider-container {
@@ -120,46 +126,47 @@ h2 {
 }
 
 .form-group input {
-  width: 95%;
-  padding: 8px;
+  width: 100%;
+  padding: 12px 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
+  box-sizing: border-box; /* Prevents overflow */
 }
 
 .password-input-container {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .password-input-container input {
   width: 100%;
-  padding-right: 40px; 
+  padding-right: 40px;
 }
 
 .password-toggle-icon {
   position: absolute;
-  right: 10px;
+  padding: 10px;
+  right: 12px;
   cursor: pointer;
-  color: gray; 
+  color: gray;
 }
 
 .password-toggle-icon:hover {
-  color: #000; 
+  color: #000;
 }
 
 button {
-  width: 100%;
-  padding: 10px 15px;
+  width: 100%; /* Consistent width */
+  padding: 12px 15px;
   background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  text-align: center;
+  white-space: nowrap; /* Prevents button text from wrapping */
   margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 button:hover {
@@ -180,31 +187,32 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* for smaller screen */
 @media (max-width: 768px) {
   .login-signup-container {
-    flex-direction: column; /* Stack the image and form vertically */
-    height: auto; /* Allow content to grow with the screen height */
+    flex-direction: column;
+    height: auto;
   }
 
   .image-container {
     width: 100%;
-    height: 50vh; /* Image takes half the screen height */
-    padding: 0;
+    height: 50vh;
+    padding: 10px;
   }
 
   .login-signup-form-container {
-    width: 95%;
-    height: 50vh; /* Form takes half the screen height */
+    width: 88%;
+    padding-top: 30px;
+    padding-bottom: 30px;
     margin-top: 20px;
     max-width: 100%;
-    padding: 20px;
   }
 
   .heading {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .description {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
