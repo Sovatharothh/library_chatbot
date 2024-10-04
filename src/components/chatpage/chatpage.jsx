@@ -30,12 +30,14 @@ export default function ChatPage() {
     setAttemptCount(1); // Reset attempt count to initial state
   };
 
-  const stepSize = 45; // Distance between the centers of two consecutive nav-circles
+  // Detect screen size and adjust the step size accordingly
+  const isMobile = window.innerWidth < 768;
+  const stepSize = isMobile ? 30 : 45; // Closer circles on mobile, regular spacing on desktop
   const initialRightOffset = 75; // attempt-icon first position
 
   // Calculate the right position based on the attempt count
-  const rightPosition = initialRightOffset + (attemptCount - 1) * stepSize; 
-  
+  const rightPosition = initialRightOffset + (attemptCount - 1) * stepSize;
+
   return (
     <div className="chatpage-container">
       {/* Navbar */}
