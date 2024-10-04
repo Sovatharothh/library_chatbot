@@ -10,6 +10,7 @@ export default function ChatPage() {
   const [currentTab, setCurrentTab] = useState('Main');
   const [attemptCount, setAttemptCount] = useState(1);
   const [sidebarVisible, setSidebarVisible] = useState(false); // State to toggle sidebar
+  const [chatHistory, setChatHistory] = useState([...Array(5)]); // State for chat/attempt history
 
   const handleTabClick = (tab) => {
     setCurrentTab(tab);
@@ -21,6 +22,12 @@ export default function ChatPage() {
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
+  };
+
+  // Clear chat history and reset attempt count
+  const clearChat = () => {
+    setChatHistory([...Array(5)]); // Clear chat history
+    setAttemptCount(1); // Reset attempt count to initial state
   };
 
   const stepSize = 45; // Distance between the centers of two consecutive nav-circles
@@ -60,13 +67,18 @@ export default function ChatPage() {
       {/* Sidebar */}
       <div className={`sidebar ${sidebarVisible ? 'visible' : ''}`}>
         <div className="sidebar-content">
+          {/* Close Button for Sidebar on Mobile */}
+          <button className="close-btn" onClick={toggleSidebar}>
+            &times;
+          </button>
+
           <div className="sidebar-header">
             <h2>{currentTab}</h2>
           </div>
 
           {/* Attempts */}
           <div className="attempt-container">
-            {[...Array(5)].map((_, index) => (
+            {chatHistory.map((_, index) => (
               <div
                 key={index}
                 className={`attempt-box ${index % 2 === 0 ? 'blue' : 'red'}`}
@@ -111,7 +123,7 @@ export default function ChatPage() {
         )}
         <div className="chat-input">
           <input type="text" placeholder="Type a message..." />
-          <div className="clear-container">
+          <div className="clear-container" onClick={clearChat}>
             <FontAwesomeIcon icon={faBroom} className="clear-icon" /> clear
           </div>
           <FontAwesomeIcon

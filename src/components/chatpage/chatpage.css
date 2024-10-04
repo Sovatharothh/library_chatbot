@@ -62,10 +62,7 @@
   border-radius: 5px;
   font-size: 0.9rem;
   cursor: pointer;
-
 }
-
-
 
 /* Circle style */
 .attempt-frame .fa-circle {
@@ -158,7 +155,7 @@
   right: 92%;
 }
 
-
+/* Hamburger Button */
 .hamburger-btn {
   display: none; /* Hidden by default, only visible on mobile */
   position: fixed;
@@ -166,7 +163,7 @@
   height: 30px;
   top: 8px;
   left: 30px;
-  z-index: 1100px;
+  z-index: 1100;
   background-color: var(--primary-color);
   color: white;
   padding: 5px;
@@ -175,8 +172,25 @@
   cursor: pointer;
 }
 
-.hamburger-btn.sidebar-open {
-  left: 250px; /* Move hamburger button to the right when the sidebar is open */
+/* Sidebar Close Button for Mobile */
+.sidebar .close-btn {
+  display: none; /* Only show close button on mobile */
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 15px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  z-index: 1101; /* Ensure it is above the sidebar */
+}
+
+.sidebar .close-btn:hover {
+  color: var(--secondary-color);
 }
 
 /* attempt-icon */
@@ -186,9 +200,9 @@
   top: -13px;
   margin-right: 40px;
   position: absolute;
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
   transition: left 0.3s ease; /* Smooth transition when moving between circles */
-  z-index: 10; 
+  z-index: 10;
 }
 
 /* Circle attempts */
@@ -226,7 +240,6 @@
   position: relative;
 }
 
-
 /* welcome-page */
 .welcome-page {
   display: flex;
@@ -238,12 +251,12 @@
 }
 
 .welcome-page img.logo {
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 .welcome-page h2 {
-  margin-top: 5px; 
-  font-size: 1.5rem; 
+  margin-top: 5px;
+  font-size: 1.5rem;
 }
 
 /* Chat input */
@@ -316,7 +329,10 @@
 
   .sidebar.visible {
     transform: translateX(0); /* Show sidebar when hamburger is clicked */
+  }
 
+  .sidebar .close-btn {
+    display: block; /* Show close button on mobile when sidebar is visible */
   }
 
   .navbar {
