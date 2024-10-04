@@ -16,7 +16,7 @@ export default function ChatPage() {
   };
 
   const handleNextAttempt = () => {
-    setAttemptCount((prev) => (prev < 5 ? prev + 1 : prev));
+    setAttemptCount((prev) => (prev < 6 ? prev + 1 : prev));
   };
 
   const toggleSidebar = () => {
@@ -24,11 +24,11 @@ export default function ChatPage() {
   };
 
   const stepSize = 45; // Distance between the centers of two consecutive nav-circles
-  const initialRightOffset = 120; // attempt-icon first position
+  const initialRightOffset = 75; // attempt-icon first position
 
   // Calculate the right position based on the attempt count
-  const rightPosition = initialRightOffset + (attemptCount - 1) * stepSize;
-
+  const rightPosition = initialRightOffset + (attemptCount - 1) * stepSize; 
+  
   return (
     <div className="chatpage-container">
       {/* Navbar */}
@@ -48,7 +48,7 @@ export default function ChatPage() {
           {[...Array(5)].map((_, index) => (
             <div
               key={index}
-              className={`nav-circle ${attemptCount > 4 - index ? 'active' : ''}`}
+              className={`nav-circle ${attemptCount > 5 - index ? 'active' : ''}`}
             ></div>
           ))}
         </div>
