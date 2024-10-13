@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faPaperPlane, faHistory, faComment, faBroom, faCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,56 +8,117 @@ import engle from '../assets/engle.png';
 
 export default function ChatPage() {
   const [currentTab, setCurrentTab] = useState('Main');
-  const [attemptCount, setAttemptCount] = useState(1);
-  const [sidebarVisible, setSidebarVisible] = useState(false); // State to toggle sidebar
-  const [chatHistory, setChatHistory] = useState([...Array(5)]); // State for chat/attempt history
+  const [attemptCount, setAttemptCount] = useState(0); // Tracks user attempts (up to 5)
+  const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]); // Complete chat history (user + bot)
+  const [currentMessage, setCurrentMessage] = useState(''); // Current message input
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
+  const chatEndRef = useRef(null); // Reference to the chat area end for auto-scrolling
+
+  // Scroll to the bottom of the chat when a new message is added
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatHistory]);
+
+  // Function to handle tab switching
   const handleTabClick = (tab) => {
     setCurrentTab(tab);
   };
 
-  const handleNextAttempt = () => {
-    setAttemptCount((prev) => (prev < 6 ? prev + 1 : prev));
+  // Function to handle sending the message (user attempt)
+  const handleNextAttempt = async () => {
+    if (currentMessage.trim() === '') return; // Ignore empty messages
+    if (attemptCount >= 5) return; // User cannot send more than 5 attempts
+
+    const userMessage = { sender: 'user', text: currentMessage };
+    const updatedHistory = [...chatHistory, userMessage]; // Append user's message to history
+    setChatHistory(updatedHistory); // Update history
+    setCurrentMessage(''); // Clear input field
+
+    // Call the backend for the bot's response
+    setIsLoading(true); // Show loading state
+    try {
+      const response = await fetch('http://localhost:5000/api/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain', // Use plain text format
+        },
+        body: currentMessage, // Send the message directly as plain text
+      });
+
+      const chatbotResponse = await response.text(); // Get the response as plain text
+      console.log('Bot response:', chatbotResponse); // Log bot response for debugging
+      const botResponse = { sender: 'bot', text: chatbotResponse }; // Create bot's message
+      setChatHistory((prev) => [...prev, botResponse]); // Append bot's message to history
+
+      // Only increase the attempt count after both the user message and bot response are stored
+      setAttemptCount((prev) => prev + 1); // Increment attempt count
+    } catch (error) {
+      console.error('Error fetching bot response:', error); // Log errors
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
   };
 
+  // Toggle sidebar visibility
   const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible); // Toggle sidebar visibility
+    setSidebarVisible(!sidebarVisible);
   };
 
   // Clear chat history and reset attempt count
   const clearChat = () => {
-    setChatHistory([...Array(5)]); // Clear chat history
-    setAttemptCount(1); // Reset attempt count to initial state
+    setChatHistory([]);
+    setAttemptCount(0); // Reset attempts to 0
   };
 
-  // Detect screen size and adjust the step size accordingly
+  // Detect if the user is on mobile and adjust the step size for positioning elements
   const isMobile = window.innerWidth < 768;
-  const stepSize = isMobile ? 30 : 45; // Closer circles on mobile, regular spacing on desktop
-  const initialRightOffset = 75; // attempt-icon first position
+  const stepSize = isMobile ? 30 : 45;
+  const initialRightOffset = 75;
+  const rightPosition = initialRightOffset + attemptCount * stepSize;
 
-  // Calculate the right position based on the attempt count
-  const rightPosition = initialRightOffset + (attemptCount - 1) * stepSize;
+  // Reusable component for displaying messages
+  const renderChatMessages = () => {
+    return (
+      <div className="chat-display">
+        {chatHistory.length === 0 ? (
+          <p>No messages yet.</p>
+        ) : (
+          chatHistory.map((message, index) => (
+            <div
+              key={index}
+              className={`chat-message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
+            >
+              {message.text}
+            </div>
+          ))
+        )}
+        {isLoading && <div className="chat-message bot-message">Bot is typing...</div>}
+        <div ref={chatEndRef}></div> {/* Ensure auto-scroll */}
+      </div>
+    );
+  };
 
   return (
     <div className="chatpage-container">
       {/* Navbar */}
       <div className="navbar">
-        {/* Hamburger Button for Mobile */}
-        <button 
-          className={`hamburger-btn ${sidebarVisible ? 'sidebar-open' : ''}`} 
+        <button
+          className={`hamburger-btn ${sidebarVisible ? 'sidebar-open' : ''}`}
           onClick={toggleSidebar}
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
-        {/* User Info (Hidden on Mobile) */}
-        <div className="user-info">
-          <button className="user-profile"></button>
-        </div>
         <div className="circle-container">
           {[...Array(5)].map((_, index) => (
             <div
               key={index}
-              className={`nav-circle ${attemptCount > 5 - index ? 'active' : ''}`}
+              className={`nav-circle ${attemptCount > (4 - index) ? 'active' : ''}`}
             ></div>
           ))}
         </div>
@@ -69,7 +130,6 @@ export default function ChatPage() {
       {/* Sidebar */}
       <div className={`sidebar ${sidebarVisible ? 'visible' : ''}`}>
         <div className="sidebar-content">
-          {/* Close Button for Sidebar on Mobile */}
           <button className="close-btn" onClick={toggleSidebar}>
             &times;
           </button>
@@ -80,21 +140,22 @@ export default function ChatPage() {
 
           {/* Attempts */}
           <div className="attempt-container">
-            {chatHistory.map((_, index) => (
+            {/* Display all 5 attempt boxes, use lighter color for unfilled */}
+            {[...Array(5)].map((_, index) => (
               <div
                 key={index}
-                className={`attempt-box ${index % 2 === 0 ? 'blue' : 'red'}`}
+                className={`attempt-box ${attemptCount > index ? `filled ${index % 2 === 0 ? 'blue' : 'red'}` : (index % 2 === 0 ? 'blue-light' : 'red-light')}`}
               >
                 <div className="attempt-frame">
                   <FontAwesomeIcon icon={faCircle} className="fa-circle" />
-                  <p>History {index + 1}</p>
+                  <p>{`History ${index + 1}`}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Tabs - Placed at the bottom */}
+        {/* Tabs */}
         <div className="tabs">
           <div className="button-wrapper">
             <button
@@ -117,20 +178,34 @@ export default function ChatPage() {
       <div className="chat-area">
         {currentTab === 'Main' ? (
           <div className="welcome-page">
-            <img className="logo" src={AUPP_Logo} alt="AUPP Logo" />
-            <h2>Welcome to AUPP Library Chatbot</h2>
+            {chatHistory.length === 0 ? (
+              <>
+                <img className="logo" src={AUPP_Logo} alt="AUPP Logo" />
+                <h2>Welcome to AUPP Library Chatbot</h2>
+              </>
+            ) : (
+              renderChatMessages()
+            )}
           </div>
         ) : (
-          <div className="history-page"></div>
+          // History tab chat display (same structure as Main)
+          renderChatMessages()
         )}
+
         <div className="chat-input">
-          <input type="text" placeholder="Type a message..." />
+          <input
+            type="text"
+            placeholder={attemptCount >= 5 ? 'Limit reached. Clear chat to start over.' : 'Type a message...'}
+            value={currentMessage}
+            onChange={(e) => setCurrentMessage(e.target.value)}
+            disabled={attemptCount >= 5 || isLoading}
+          />
           <div className="clear-container" onClick={clearChat}>
             <FontAwesomeIcon icon={faBroom} className="clear-icon" /> clear
           </div>
           <FontAwesomeIcon
             icon={faPaperPlane}
-            className="send-icon"
+            className={`send-icon ${attemptCount >= 5 || isLoading ? 'disabled' : ''}`}
             onClick={handleNextAttempt}
           />
         </div>

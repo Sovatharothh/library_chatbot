@@ -1,6 +1,8 @@
 :root {
   --primary-color: #0E2160;
+  --primary-color-light: rgba(14, 33, 96, 0.3); /* Lighter blue */
   --secondary-color: #AD0000;
+  --secondary-color-light: rgba(173, 0, 0, 0.3); /* Lighter red */
   --border-color: #D1D5DB;
   --background-color: #f0f0f0;
 }
@@ -48,8 +50,10 @@
   margin-top: 50px;
 }
 
+/* Attempt box initial state (lighter color) */
 .attempt-box {
   margin: 28px 0;
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity change */
 }
 
 .attempt-frame {
@@ -64,6 +68,25 @@
   cursor: pointer;
 }
 
+/* Attempt box initial state (lighter color) */
+.attempt-box.blue-light .attempt-frame {
+  background-color: rgba(14, 33, 96, 0.3); /* Lighter blue initially */
+}
+
+.attempt-box.red-light .attempt-frame {
+  background-color: rgba(173, 0, 0, 0.3); /* Lighter red initially */
+}
+
+/* Full red or blue when a message is sent */
+.attempt-box.filled.blue .attempt-frame {
+  background-color: #0E2160; /* Full blue when filled */
+}
+
+.attempt-box.filled.red .attempt-frame {
+  background-color: #AD0000; /* Full red when filled */
+}
+
+
 /* Circle style */
 .attempt-frame .fa-circle {
   width: 10px;
@@ -73,22 +96,6 @@
   display: inline-block;
   border-style: dashed;
   border-width: 2px;
-}
-
-.attempt-box.blue .circle {
-  background-color: var(--secondary-color);
-}
-
-.attempt-box.red .circle {
-  background-color: var(--primary-color);
-}
-
-.attempt-box.blue .attempt-frame {
-  background-color: var(--primary-color);
-}
-
-.attempt-box.red .attempt-frame {
-  background-color: var(--secondary-color);
 }
 
 /* Tabs */
@@ -238,16 +245,61 @@
   margin-left: 230px; /* Sidebar visible by default, so leave margin */
   overflow-y: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 145px); 
 }
+
+/* Chat display area */
+.chat-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* Align messages at the top */
+  justify-content: flex-start;  /* Prevents vertical centering */
+  padding: 20px;  /* Ensure there is padding inside the container */
+  flex-grow: 1;
+  overflow-y: auto;
+  max-width: 1200px;  /* Limit the width of the messages for a better layout */
+  margin: 0 auto;  /* Center the chat area horizontally */
+}
+
+/* User message */
+.chat-message.user-message {
+  align-self: flex-end;
+  background-color: #AD0000; 
+  color: white;
+  padding: 10px;
+  border-radius: 15px 15px 0 15px;
+  max-width: 70%;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+  margin-left: auto;  /* Ensure user messages align to the right */
+  text-align: right;
+}
+
+/* Bot's message */
+.chat-message.bot-message {
+  align-self: flex-start;
+  background-color: #0E2160;   
+  color: white;
+  padding: 10px;
+  border-radius: 15px 15px 15px 0;
+  max-width: 70%;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+  margin-right: auto;  
+  text-align: left;
+}
+
 
 /* welcome-page */
 .welcome-page {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers content horizontally */
-  justify-content: center; /* Centers content vertically */
-  text-align: center; /* Optional: Center the text within each element */
-  padding: 80px;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  padding: 30px;
 }
 
 .welcome-page img.logo {
@@ -255,19 +307,19 @@
 }
 
 .welcome-page h2 {
-  margin-top: 5px;
+  margin-top: 3px;
   font-size: 1.5rem;
 }
 
 /* Chat input */
 .chat-input {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
+  position: fixed;
+  bottom: 15px;
+  left: 230px;  /* Adjust for the sidebar width */
   right: 0;
   display: flex;
   align-items: center;
-  width: calc(100% - 40px);
+  width: calc(100% - 250px); /* Adjust for padding and sidebar */
   margin-left: auto;
   margin-right: auto;
   padding: 10px 20px;
@@ -357,21 +409,21 @@
     transition: left 0.3s ease; /* Smooth transition when moving between circles */
   }
 
-/* Circle attempts */
-.circle-container {
-  margin-right: 50px;
-}
+  /* Circle attempts */
+  .circle-container {
+    margin-right: 50px;
+  }
 
   .chat-area {
-    margin-left: 0; /* Sidebar hidden, so no margin on mobile */
-    padding-top: 70px; /* Adjust padding to account for smaller navbar */
+    margin-left: 0;
+    padding-top: 70px;
+    height: calc(100vh - 100px);  /* Adjusted for mobile height */
   }
 
   .chat-input {
-    position: fixed;
-    bottom: 0;
     left: 0;
-    right: 0;
+    width: calc(100% - 40px); /* Full width for mobile with some padding */
     padding: 10px;
   }
 }
+
