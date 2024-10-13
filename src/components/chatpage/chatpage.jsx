@@ -13,6 +13,7 @@ export default function ChatPage() {
   const [chatHistory, setChatHistory] = useState([]); // Complete chat history (user + bot)
   const [currentMessage, setCurrentMessage] = useState(''); // Current message input
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [viewingAttempt, setViewingAttempt] = useState(null); // Tracks which attempt the user is viewing
 
   const chatEndRef = useRef(null); // Reference to the chat area end for auto-scrolling
 
@@ -28,6 +29,7 @@ export default function ChatPage() {
   // Function to handle tab switching
   const handleTabClick = (tab) => {
     setCurrentTab(tab);
+    setViewingAttempt(null); // Reset viewing attempt when switching tabs
   };
 
   // Function to handle sending the message (user attempt)
@@ -74,6 +76,7 @@ export default function ChatPage() {
   const clearChat = () => {
     setChatHistory([]);
     setAttemptCount(0); // Reset attempts to 0
+    setViewingAttempt(null); // Reset viewing attempt
   };
 
   // Detect if the user is on mobile and adjust the step size for positioning elements
@@ -84,12 +87,19 @@ export default function ChatPage() {
 
   // Reusable component for displaying messages
   const renderChatMessages = () => {
+    let filteredMessages = chatHistory;
+
+    // If viewing a specific attempt, filter messages up to that attempt
+    if (viewingAttempt !== null) {
+      filteredMessages = chatHistory.slice(0, (viewingAttempt + 1) * 2); // Each attempt consists of 1 user + 1 bot message
+    }
+
     return (
       <div className="chat-display">
-        {chatHistory.length === 0 ? (
+        {filteredMessages.length === 0 ? (
           <p>No messages yet.</p>
         ) : (
-          chatHistory.map((message, index) => (
+          filteredMessages.map((message, index) => (
             <div
               key={index}
               className={`chat-message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
@@ -145,6 +155,10 @@ export default function ChatPage() {
               <div
                 key={index}
                 className={`attempt-box ${attemptCount > index ? `filled ${index % 2 === 0 ? 'blue' : 'red'}` : (index % 2 === 0 ? 'blue-light' : 'red-light')}`}
+                onClick={() => {
+                  setViewingAttempt(index); // Set viewingAttempt to the clicked attempt
+                  setCurrentTab('History'); // Switch to History tab
+                }}
               >
                 <div className="attempt-frame">
                   <FontAwesomeIcon icon={faCircle} className="fa-circle" />
