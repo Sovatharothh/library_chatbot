@@ -124,6 +124,12 @@ export default function ChatPage() {
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
+
+        {/* User Info Box */}
+        <div className="user-info-box">
+          Molly {/* Display the user's name */}
+        </div>
+
         <div className="circle-container">
           {[...Array(5)].map((_, index) => (
             <div
@@ -132,6 +138,7 @@ export default function ChatPage() {
             ></div>
           ))}
         </div>
+
         <div className="attempt-icon" style={{ right: `${rightPosition}px` }}>
           <img className="engle" src={engle} alt="engle" />
         </div>
@@ -150,7 +157,6 @@ export default function ChatPage() {
 
           {/* Attempts */}
           <div className="attempt-container">
-            {/* Display all 5 attempt boxes, use lighter color for unfilled */}
             {[...Array(5)].map((_, index) => (
               <div
                 key={index}
@@ -202,7 +208,6 @@ export default function ChatPage() {
             )}
           </div>
         ) : (
-          // History tab chat display (same structure as Main)
           renderChatMessages()
         )}
 
