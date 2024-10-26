@@ -4,8 +4,6 @@ This project is the front-end implementation of the AUPP Library Chatbot, which 
 
 ## Table of Contents
 
-- [Project Structure](#project-structure)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Components](#components)
   - [LoginSignup Component](#loginsignup-component)
@@ -86,18 +84,5 @@ You can customize the project by modifying the CSS files in the `styles/` direct
 - **Modifying Layouts**: Adjust the Flexbox settings in the CSS files to change the layout.
 - **Styling Components**: Modify the CSS variables in `:root` to change the color scheme and other global styles.
 
-## Contributing
-
-If you wish to contribute to the project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes and commit them with descriptive messages.
-4. Push your changes to your forked repository.
-5. Open a pull request to the main repository.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 
