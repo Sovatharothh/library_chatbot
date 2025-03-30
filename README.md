@@ -45,9 +45,4 @@ The `ChatPage` component is the main interface where users can interact with the
 
 
 
-- **Changing Images**: Replace the images in the `assets/` directory with your own.
-- **Modifying Layouts**: Adjust the Flexbox settings in the CSS files to change the layout.
-- **Styling Components**: Modify the CSS variables in `:root` to change the color scheme and other global styles.
-
-
 
