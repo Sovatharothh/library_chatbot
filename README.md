@@ -35,10 +35,6 @@ The app will be available at `http://localhost:3000`.
 
 The `LoginSignup` component is the entry point for users to create an account or log in using their Microsoft account. This page is designed to be responsive and adjusts its layout based on the screen size:
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 445463813d7b8abca35ec79f4cb958601ff88d51
 ### ChatPage Component
 
 The `ChatPage` component is the main interface where users can interact with the chatbot. It features:
@@ -47,9 +43,4 @@ The `ChatPage` component is the main interface where users can interact with the
 - A dynamic navbar that displays the user's progress through different attempts.
 - A chat area where users can type messages and interact with the chatbot.
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 445463813d7b8abca35ec79f4cb958601ff88d51
