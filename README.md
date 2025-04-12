@@ -47,9 +47,12 @@ The `ChatPage` component is the main interface where users can interact with the
 - A dynamic navbar that displays the user's progress through different attempts.
 - A chat area where users can type messages and interact with the chatbot.
 
-<<<<<<< HEAD
-=======
+## 🖼️ Preview
 
+### 🔐 Login Page
 
+![Login Page](./screenshots/login.png)
 
->>>>>>> 445463813d7b8abca35ec79f4cb958601ff88d51
+### 💬 Chat Interface
+
+![Chat Page](./screenshots/chat.png)
